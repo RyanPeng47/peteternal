@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>天气预报</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        --card-bg: rgba(255, 255, 255, 0.8);
+        --text-main: #111;
+        --accent: #0078d7;
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #9ad5ff, #fcd2ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .app {
+        width: min(420px, 100%);
+        background: var(--card-bg);
+        color: var(--text-main);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: 28px;
+        color: #0f172a;
+      }
+
+      p {
+        margin-top: 0;
+        color: #475569;
+      }
+
+      form {
+        display: flex;
+        gap: 12px;
+        margin: 24px 0;
+      }
+
+      input {
+        flex: 1;
+        border: 1px solid rgba(15, 23, 42, 0.2);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 16px;
+        outline: none;
+        transition: border 0.2s ease;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      input:focus {
+        border-color: var(--accent);
+      }
+
+      button {
+        border: none;
+        border-radius: 12px;
+        padding: 12px 18px;
+        font-size: 16px;
+        background: var(--accent);
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 10px 20px rgba(0, 120, 215, 0.3);
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        box-shadow: none;
+      }
+
+      button:not(:disabled):hover {
+        transform: translateY(-2px);
+      }
+
+      .card {
+        border-radius: 20px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        margin-top: 12px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+      }
+
+      .stat {
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(148, 163, 184, 0.15);
+      }
+
+      .stat label {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 6px;
+      }
+
+      .stat strong {
+        font-size: 20px;
+        color: #0f172a;
+      }
+
+      .error {
+        color: #b91c1c;
+        margin-top: 8px;
+      }
+
+      .forecast {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 10px;
+      }
+
+      .forecast-item {
+        background: rgba(226, 232, 240, 0.7);
+        border-radius: 14px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .forecast-item span {
+        display: block;
+        color: #475569;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <h1>天气预报站</h1>
+      <p>输入城市名称，获取实时天气与未来 3 天的温度趋势。</p>
+      <form id="search-form">
+        <input
+          id="city"
+          type="text"
+          placeholder="例如：上海、Beijing、Tokyo"
+          required
+          autocomplete="off"
+        />
+        <button type="submit">查询</button>
+      </form>
+      <div id="message"></div>
+      <section id="result"></section>
+    </main>
+
+    <script>
+      const form = document.getElementById("search-form");
+      const cityInput = document.getElementById("city");
+      const message = document.getElementById("message");
+      const result = document.getElementById("result");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const city = cityInput.value.trim();
+        if (!city) {
+          return;
+        }
+
+        toggleLoading(true);
+        setMessage("");
+        result.innerHTML = "";
+
+        try {
+          const location = await fetchCity(city);
+          const weather = await fetchWeather(location);
+          renderWeather(location, weather);
+        } catch (error) {
+          console.error(error);
+          setMessage(error.message || "查询失败，请稍后再试。", true);
+        } finally {
+          toggleLoading(false);
+        }
+      });
+
+      function toggleLoading(isLoading) {
+        const button = form.querySelector("button");
+        button.disabled = isLoading;
+        button.textContent = isLoading ? "查询中..." : "查询";
+      }
+
+      function setMessage(text, isError = false) {
+        message.textContent = text;
+        message.className = isError ? "error" : "";
+      }
+
+      async function fetchCity(city) {
+        const url = new URL("https://geocoding-api.open-meteo.com/v1/search");
+        url.searchParams.set("name", city);
+        url.searchParams.set("count", "1");
+        url.searchParams.set("language", "zh");
+
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error("地理编码服务不可用。");
+        }
+
+        const data = await res.json();
+        if (!data.results || !data.results.length) {
+          throw new Error("未找到对应城市，请检查输入。");
+        }
+
+        return data.results[0];
+      }
+
+      async function fetchWeather({ latitude, longitude }) {
+        const url = new URL("https://api.open-meteo.com/v1/forecast");
+        url.searchParams.set("latitude", latitude);
+        url.searchParams.set("longitude", longitude);
+        url.searchParams.set(
+          "current",
+          "temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m"
+        );
+        url.searchParams.set("hourly", "temperature_2m");
+        url.searchParams.set("forecast_days", "3");
+        url.searchParams.set("timezone", "auto");
+
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error("天气服务不可用。");
+        }
+
+        return res.json();
+      }
+
+      function renderWeather(location, weather) {
+        const { current, hourly } = weather;
+        const nextHours = buildDailyForecast(hourly);
+
+        result.innerHTML = `
+          <div class="card">
+            <h2>${location.name}, ${location.country_code || ""}</h2>
+            <p>上次更新：${formatDatetime(current.time)}</p>
+            <div class="stats">
+              ${renderStat("气温", `${current.temperature_2m}°C`)}
+              ${renderStat("体感", `${current.apparent_temperature}°C`)}
+              ${renderStat("湿度", `${current.relative_humidity_2m}%`)}
+              ${renderStat("风速", `${current.wind_speed_10m} km/h`)}
+            </div>
+          </div>
+          <div class="card">
+            <h3>未来 3 天温度</h3>
+            <div class="forecast">
+              ${nextHours
+                .map(
+                  (item) => `
+                <div class="forecast-item">
+                  <strong>${item.temp}°C</strong>
+                  <span>${item.day}</span>
+                  <span>${item.hour}</span>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderStat(label, value) {
+        return `
+          <div class="stat">
+            <label>${label}</label>
+            <strong>${value}</strong>
+          </div>
+        `;
+      }
+
+      function buildDailyForecast(hourly) {
+        const slots = [];
+        const { time, temperature_2m } = hourly;
+        const now = new Date();
+        for (let i = 0; i < time.length && slots.length < 6; i += 6) {
+          const slotTime = new Date(time[i]);
+          if (slotTime >= now) {
+            slots.push({
+              day: formatDay(slotTime),
+              hour: `${slotTime.getHours()}:00`,
+              temp: temperature_2m[i],
+            });
+          }
+        }
+        return slots;
+      }
+
+      function formatDay(date) {
+        const days = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+        return days[date.getDay()];
+      }
+
+      function formatDatetime(dateString) {
+        const date = new Date(dateString);
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+          date.getDate()
+        )} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+      }
+
+      function pad(num) {
+        return num.toString().padStart(2, "0");
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
