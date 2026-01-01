@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI宠物卡通化 - PetEternal (宠恒)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-avatar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <span>PetEternal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">首页</a>
+                <a href="index.html#space">宠物空间</a>
+                <a href="decoration.html">空间装饰</a>
+                <a href="ai-avatar.html" class="active">AI卡通</a>
+                <a href="memorial.html">纪念日志</a>
+                <a href="social.html">宠友圈</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="avatar-main">
+        <h1 class="page-title">AI宠物卡通化</h1>
+        <p class="page-subtitle">用AI为您的爱宠创建独特的卡通形象</p>
+
+        <!-- 上传区域 -->
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>上传宠物照片</h3>
+                    <p>支持 JPG、PNG 格式，建议清晰正面的照片</p>
+                    <button class="upload-btn">
+                        <i class="fas fa-camera"></i>
+                        选择照片
+                    </button>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+
+            <!-- 图片预览 -->
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-container">
+                    <img id="previewImage" src="" alt="预览图片">
+                    <button class="change-photo-btn">
+                        <i class="fas fa-exchange-alt"></i>
+                        更换照片
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 风格选择 -->
+        <div class="style-section" id="styleSection" style="display: none;">
+            <h2>选择卡通风格</h2>
+            <div class="style-grid">
+                <div class="style-card" data-style="pixar">
+                    <div class="style-preview pixar-preview">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>皮克斯3D</h3>
+                    <p>经典的3D动画风格</p>
+                    <button class="select-style-btn">选择</button>
+                </div>
+
+                <div class="style-card" data-style="watercolor">
+                    <div class="style-preview watercolor-preview">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>手绘水彩</h3>
+                    <p>温柔的水彩画风</p>
+                    <button class="select-style-btn">选择</button>
+                </div>
+
+                <div class="style-card" data-style="cyberpunk">
+                    <div class="style-preview cyberpunk-preview">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>赛博朋克</h3>
+                    <p>未来科技风格</p>
+                    <button class="select-style-btn">选择</button>
+                </div>
+
+                <div class="style-card" data-style="cartoon">
+                    <div class="style-preview cartoon-preview">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <h3>美式卡通</h3>
+                    <p>活泼的卡通风格</p>
+                    <button class="select-style-btn">选择</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 生成结果 -->
+        <div class="result-section" id="resultSection" style="display: none;">
+            <h2>生成结果</h2>
+            <div class="result-container">
+                <div class="result-image">
+                    <img id="generatedImage" src="" alt="生成的卡通形象">
+                    <div class="processing-overlay" id="processingOverlay">
+                        <div class="spinner"></div>
+                        <p>AI正在努力生成中...</p>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i>
+                        下载图片
+                    </button>
+                    <button class="share-btn">
+                        <i class="fas fa-share-alt"></i>
+                        分享
+                    </button>
+                    <button class="sticker-btn">
+                        <i class="fas fa-smile"></i>
+                        制作表情包
+                    </button>
+                    <button class="regenerate-btn">
+                        <i class="fas fa-redo"></i>
+                        重新生成
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表情包制作 -->
+        <div class="sticker-section" id="stickerSection" style="display: none;">
+            <h2>制作表情包</h2>
+            <div class="sticker-templates">
+                <div class="template-card" data-template="happy">
+                    <div class="template-preview">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <p>开心</p>
+                </div>
+                <div class="template-card" data-template="love">
+                    <div class="template-preview">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p>喜爱</p>
+                </div>
+                <div class="template-card" data-template="sleepy">
+                    <div class="template-preview">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <p>困困</p>
+                </div>
+                <div class="template-card" data-template="cute">
+                    <div class="template-preview">
+                        <i class="fas fa-kiss-wink-heart"></i>
+                    </div>
+                    <p>可爱</p>
+                </div>
+            </div>
+            <div class="sticker-result" id="stickerResult">
+                <!-- 生成的表情包将显示在这里 -->
+            </div>
+        </div>
+
+        <!-- 历史记录 -->
+        <div class="history-section">
+            <h2>历史作品</h2>
+            <div class="history-grid" id="historyGrid">
+                <!-- 历史记录将动态加载 -->
+                <div class="history-placeholder">
+                    <i class="fas fa-history"></i>
+                    <p>暂无历史记录</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="index.html#space" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>空间</span>
+        </a>
+        <a href="#" class="nav-item add-btn">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        <a href="social.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>宠友</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+
+    <script src="js/nav-common.js"></script>
+    <script src="js/ai-avatar.js"></script>
+</body>
+</html>

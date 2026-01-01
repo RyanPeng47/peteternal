@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠友圈 - PetEternal (宠恒)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/social.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <span>PetEternal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">首页</a>
+                <a href="index.html#space">宠物空间</a>
+                <a href="decoration.html">空间装饰</a>
+                <a href="ai-avatar.html">AI卡通</a>
+                <a href="memorial.html">纪念日志</a>
+                <a href="social.html" class="active">宠友圈</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="social-main">
+        <!-- 位置发现 -->
+        <section class="location-section">
+            <h2>附近的宠友</h2>
+            <div class="location-bar">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="currentLocation">北京市朝阳区</span>
+                <button class="change-location-btn">切换位置</button>
+            </div>
+            <div class="nearby-friends">
+                <div class="friend-card">
+                    <img src="https://via.placeholder.com/80" alt="宠物头像" class="friend-avatar">
+                    <h4>豆豆</h4>
+                    <p>金毛 · 2km</p>
+                    <button class="follow-btn">关注</button>
+                </div>
+                <div class="friend-card">
+                    <img src="https://via.placeholder.com/80" alt="宠物头像" class="friend-avatar">
+                    <h4>咪咪</h4>
+                    <p>布偶猫 · 3km</p>
+                    <button class="follow-btn">关注</button>
+                </div>
+                <div class="friend-card">
+                    <img src="https://via.placeholder.com/80" alt="宠物头像" class="friend-avatar">
+                    <h4>旺财</h4>
+                    <p>柯基 · 5km</p>
+                    <button class="follow-btn">关注</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社区导航 -->
+        <div class="community-nav">
+            <button class="nav-btn active" data-community="all">全部</button>
+            <button class="nav-btn" data-community="dogs">狗狗圈</button>
+            <button class="nav-btn" data-community="cats">猫咪圈</button>
+            <button class="nav-btn" data-community="rainbow">彩虹桥</button>
+            <button class="nav-btn" data-community="breeds">品种互助</button>
+        </div>
+
+        <!-- 动态内容区 -->
+        <section class="feed-section">
+            <!-- 发布动态 -->
+            <div class="create-post">
+                <div class="post-input-area">
+                    <img src="https://via.placeholder.com/50" alt="我的头像" class="my-avatar">
+                    <textarea id="postContent" placeholder="分享您的养宠日常..."></textarea>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn">
+                        <i class="fas fa-image"></i>
+                        照片
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-video"></i>
+                        视频
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-poll"></i>
+                        投票
+                    </button>
+                    <button class="publish-btn" onclick="publishPost()">发布</button>
+                </div>
+            </div>
+
+            <!-- 动态列表 -->
+            <div class="posts-feed" id="postsFeed">
+                <!-- 动态项 1 -->
+                <article class="post-item">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50" alt="用户头像" class="user-avatar">
+                        <div class="post-meta">
+                            <h4>铲屎官小李</h4>
+                            <span class="post-time">5分钟前</span>
+                        </div>
+                        <button class="follow-btn">关注</button>
+                    </div>
+                    <div class="post-content">
+                        <p>今天带豆豆去公园，第一次看到雪，激动得不行！❄️🐕</p>
+                        <div class="post-images">
+                            <img src="https://via.placeholder.com/300" alt="雪地里玩耍">
+                            <img src="https://via.placeholder.com/300" alt="开心的狗狗">
+                        </div>
+                    </div>
+                    <div class="post-stats">
+                        <button class="stat-btn like-btn">
+                            <i class="far fa-heart"></i>
+                            <span>128</span>
+                        </button>
+                        <button class="stat-btn comment-btn">
+                            <i class="far fa-comment"></i>
+                            <span>23</span>
+                        </button>
+                        <button class="stat-btn share-btn">
+                            <i class="far fa-share-square"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                    <div class="post-comments">
+                        <div class="comment">
+                            <img src="https://via.placeholder.com/30" alt="评论者头像">
+                            <div class="comment-content">
+                                <span class="comment-user">爱猫人士：</span>
+                                <span class="comment-text">好可爱！金毛看到雪都这样吗？</span>
+                            </div>
+                        </div>
+                        <div class="add-comment">
+                            <input type="text" placeholder="写评论...">
+                            <button class="comment-submit">发送</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 动态项 2 -->
+                <article class="post-item">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50" alt="用户头像" class="user-avatar">
+                        <div class="post-meta">
+                            <h4>猫奴小王</h4>
+                            <span class="post-time">1小时前</span>
+                        </div>
+                        <button class="follow-btn">已关注</button>
+                    </div>
+                    <div class="post-content">
+                        <p>分享一个养猫小技巧：猫咪乱抓家具？试试这个方法...</p>
+                        <div class="post-video">
+                            <div class="video-thumbnail">
+                                <img src="https://via.placeholder.com/400" alt="视频缩略图">
+                                <div class="play-button">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-stats">
+                        <button class="stat-btn like-btn">
+                            <i class="far fa-heart"></i>
+                            <span>256</span>
+                        </button>
+                        <button class="stat-btn comment-btn">
+                            <i class="far fa-comment"></i>
+                            <span>45</span>
+                        </button>
+                        <button class="stat-btn share-btn">
+                            <i class="far fa-share-square"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 动态项 3 - 彩虹桥社区 -->
+                <article class="post-item rainbow-post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50" alt="用户头像" class="user-avatar">
+                        <div class="post-meta">
+                            <h4>思念毛毛的妈妈</h4>
+                            <span class="post-time">2小时前</span>
+                            <span class="rainbow-tag">彩虹桥</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>毛毛，今天是你去彩虹桥的第30天。妈妈好想你，你那边有小伙伴一起玩吗？记得在梦里来看看我... 💔</p>
+                        <div class="memorial-collage">
+                            <img src="https://via.placeholder.com/150" alt="纪念照片1">
+                            <img src="https://via.placeholder.com/150" alt="纪念照片2">
+                            <img src="https://via.placeholder.com/150" alt="纪念照片3">
+                            <img src="https://via.placeholder.com/150" alt="纪念照片4">
+                        </div>
+                    </div>
+                    <div class="post-stats">
+                        <button class="stat-btn like-btn comfort-btn">
+                            <i class="fas fa-dove"></i>
+                            <span>安慰</span>
+                        </button>
+                        <button class="stat-btn comment-btn">
+                            <i class="far fa-comment"></i>
+                            <span>67</span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 加载更多 -->
+            <button class="load-more-btn" onclick="loadMorePosts()">
+                <i class="fas fa-spinner"></i>
+                加载更多
+            </button>
+        </section>
+
+        <!-- 品种互助区 -->
+        <section class="breed-help" id="breedHelp" style="display: none;">
+            <h2>品种互助圈</h2>
+            <div class="breed-categories">
+                <button class="breed-btn" data-breed="golden">金毛</button>
+                <button class="breed-btn" data-breed="husky">哈士奇</button>
+                <button class="breed-btn" data-breed="ragdoll">布偶猫</button>
+                <button class="breed-btn" data-breed="british">英短</button>
+                <button class="breed-btn" data-breed="corgi">柯基</button>
+                <button class="breed-btn" data-breed="samoyed">萨摩耶</button>
+            </div>
+            <div class="help-posts">
+                <div class="help-card">
+                    <h3>求助：金毛掉毛太严重了</h3>
+                    <p>家里金毛掉毛特别厉害，每天都在扫地，有什么好办法吗？</p>
+                    <div class="help-tags">
+                        <span class="tag">金毛</span>
+                        <span class="tag">掉毛</span>
+                        <span class="tag">护理</span>
+                    </div>
+                    <div class="help-answers">
+                        <div class="answer">
+                            <strong>养宠达人：</strong>
+                            可以试试每天梳毛，改善饮食...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="index.html#space" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>空间</span>
+        </a>
+        <a href="#" class="nav-item add-btn">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        <a href="social.html" class="nav-item active">
+            <i class="fas fa-users"></i>
+            <span>宠友</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+
+    <script src="js/nav-common.js"></script>
+    <script src="js/social.js"></script>
+</body>
+</html>

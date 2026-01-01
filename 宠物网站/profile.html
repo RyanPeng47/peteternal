@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - PetEternal (宠恒)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <span>PetEternal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">首页</a>
+                <a href="index.html#space">宠物空间</a>
+                <a href="decoration.html">空间装饰</a>
+                <a href="ai-avatar.html">AI卡通</a>
+                <a href="memorial.html">纪念日志</a>
+                <a href="social.html">宠友圈</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-logout" onclick="logout()">退出登录</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="profile-main">
+        <div class="profile-header">
+            <div class="profile-cover">
+                <div class="cover-overlay"></div>
+            </div>
+            <div class="profile-info">
+                <div class="avatar-container">
+                    <img id="userAvatar" src="https://via.placeholder.com/120" alt="用户头像" class="user-avatar">
+                    <button class="avatar-upload" onclick="uploadAvatar()">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="user-details">
+                    <h1 id="userNickname">用户昵称</h1>
+                    <p id="userBio">这是我的个人简介</p>
+                    <div class="user-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="petCount">0</span>
+                            <span class="stat-label">宠物</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="postCount">0</span>
+                            <span class="stat-label">动态</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="followingCount">0</span>
+                            <span class="stat-label">关注</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="edit-profile-btn" onclick="editProfile()">
+                    <i class="fas fa-edit"></i>
+                    编辑资料
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <!-- 侧边栏 -->
+            <aside class="profile-sidebar">
+                <nav class="sidebar-nav">
+                    <a href="#my-pets" class="nav-item active" data-section="my-pets">
+                        <i class="fas fa-paw"></i>
+                        <span>我的宠物</span>
+                    </a>
+                    <a href="#my-media" class="nav-item" data-section="my-media">
+                        <i class="fas fa-images"></i>
+                        <span>我的相册</span>
+                    </a>
+                    <a href="#timeline" class="nav-item" data-section="timeline">
+                        <i class="fas fa-clock"></i>
+                        <span>时光轴</span>
+                    </a>
+                    <a href="#settings" class="nav-item" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>设置</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- 内容区 -->
+            <section class="profile-sections">
+                <!-- 我的宠物 -->
+                <section id="my-pets" class="content-section active">
+                    <div class="section-header">
+                        <h2>我的宠物</h2>
+                        <button class="add-pet-btn" onclick="location.href='index.html#space'">
+                            <i class="fas fa-plus"></i>
+                            添加宠物
+                        </button>
+                    </div>
+                    <div class="pets-grid" id="myPetsGrid">
+                        <!-- 宠物列表将动态加载 -->
+                        <div class="pet-card" onclick="viewPet(1)">
+                            <img src="https://via.placeholder.com/150" alt="宠物照片">
+                            <h3>小白</h3>
+                            <p>金毛 · 3岁</p>
+                            <span class="pet-status alive">健康快乐</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 我的相册 -->
+                <section id="my-media" class="content-section">
+                    <div class="section-header">
+                        <h2>我的相册</h2>
+                        <div class="filter-tabs">
+                            <button class="tab-btn active" data-filter="all">全部</button>
+                            <button class="tab-btn" data-filter="photo">照片</button>
+                            <button class="tab-btn" data-filter="video">视频</button>
+                        </div>
+                    </div>
+                    <div class="media-grid" id="myMediaGrid">
+                        <!-- 媒体文件将动态加载 -->
+                    </div>
+                </section>
+
+                <!-- 时光轴 -->
+                <section id="timeline" class="content-section">
+                    <div class="section-header">
+                        <h2>时光轴</h2>
+                    </div>
+                    <div class="timeline-container" id="myTimeline">
+                        <!-- 时间线内容将动态加载 -->
+                    </div>
+                </section>
+
+                <!-- 设置 -->
+                <section id="settings" class="content-section">
+                    <div class="section-header">
+                        <h2>账户设置</h2>
+                    </div>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input type="text" id="usernameInput" placeholder="用户名">
+                        </div>
+                        <div class="form-group">
+                            <label>昵称</label>
+                            <input type="text" id="nicknameInput" placeholder="昵称">
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input type="email" id="emailInput" placeholder="邮箱地址">
+                        </div>
+                        <div class="form-group">
+                            <label>所在地</label>
+                            <input type="text" id="locationInput" placeholder="所在地">
+                        </div>
+                        <div class="form-group">
+                            <label>个人简介</label>
+                            <textarea id="bioInput" placeholder="介绍一下自己..." rows="3"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button class="save-btn" onclick="saveSettings()">保存设置</button>
+                            <button class="change-password-btn" onclick="changePassword()">修改密码</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="index.html#space" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>空间</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item add-btn" onclick="uploadMedia()">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        <a href="social.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>宠友</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+
+    <script type="module" src="js/profile.js"></script>
+</body>
+</html>

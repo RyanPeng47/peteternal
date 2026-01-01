@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空间装饰 - PetEternal (宠恒)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/decoration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <span>PetEternal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">首页</a>
+                <a href="index.html#space">宠物空间</a>
+                <a href="decoration.html" class="active">空间装饰</a>
+                <a href="ai-avatar.html">AI卡通</a>
+                <a href="memorial.html">纪念日志</a>
+                <a href="social.html">宠友圈</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="decoration-main">
+        <h1 class="page-title">装饰您的宠物空间</h1>
+
+        <!-- 装饰选项卡 -->
+        <div class="decoration-tabs">
+            <button class="tab-btn active" data-tab="themes">动态主题</button>
+            <button class="tab-btn" data-tab="widgets">数字挂件</button>
+            <button class="tab-btn" data-tab="music">情感BGM</button>
+        </div>
+
+        <!-- 动态主题 -->
+        <div class="tab-content active" id="themes">
+            <h2>选择动态背景</h2>
+            <div class="theme-grid">
+                <div class="theme-card" data-theme="sakura">
+                    <div class="theme-preview sakura-theme">
+                        <i class="fas fa-cherry-blossom"></i>
+                    </div>
+                    <h3>落樱缤纷</h3>
+                    <p>浪漫的樱花飘落效果</p>
+                </div>
+                <div class="theme-card" data-theme="grass">
+                    <div class="theme-preview grass-theme">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>青青草地</h3>
+                    <p>清新的草原背景</p>
+                </div>
+                <div class="theme-card" data-theme="starry">
+                    <div class="theme-preview starry-theme">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>璀璨星空</h3>
+                    <p>梦幻的星空效果</p>
+                </div>
+                <div class="theme-card" data-theme="rainbow">
+                    <div class="theme-preview rainbow-theme">
+                        <i class="fas fa-rainbow"></i>
+                    </div>
+                    <h3>彩虹桥</h3>
+                    <p>纪念逝去的爱宠</p>
+                </div>
+                <div class="theme-card" data-theme="weather">
+                    <div class="theme-preview weather-theme">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <h3>实时天气</h3>
+                    <p>根据当地天气变化</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数字挂件 -->
+        <div class="tab-content" id="widgets">
+            <h2>选择装饰挂件</h2>
+            <div class="widget-categories">
+                <button class="category-btn active" data-category="festival">节日装饰</button>
+                <button class="category-btn" data-category="emotions">表情挂件</button>
+                <button class="category-btn" data-category="badges">成就勋章</button>
+            </div>
+            <div class="widget-grid">
+                <!-- 节日装饰 -->
+                <div class="widget-item festival">
+                    <div class="widget-preview">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <span>圣诞树</span>
+                </div>
+                <div class="widget-item festival">
+                    <div class="widget-preview">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <span>生日礼物</span>
+                </div>
+                <div class="widget-item festival">
+                    <div class="widget-preview">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <span>情人节</span>
+                </div>
+                <!-- 表情挂件 -->
+                <div class="widget-item emotions">
+                    <div class="widget-preview">
+                        <i class="fas fa-laugh-beam"></i>
+                    </div>
+                    <span>开心</span>
+                </div>
+                <div class="widget-item emotions">
+                    <div class="widget-preview">
+                        <i class="fas fa-tired"></i>
+                    </div>
+                    <span>困困</span>
+                </div>
+                <div class="widget-item emotions">
+                    <div class="widget-preview">
+                        <i class="fas fa-kiss-wink-heart"></i>
+                    </div>
+                    <span>亲亲</span>
+                </div>
+                <!-- 成就勋章 -->
+                <div class="widget-item badges">
+                    <div class="widget-preview">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <span>训练达人</span>
+                </div>
+                <div class="widget-item badges">
+                    <div class="widget-preview">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <span>人气之星</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 情感BGM -->
+        <div class="tab-content" id="music">
+            <h2>选择背景音乐</h2>
+            <div class="music-sections">
+                <!-- 推荐歌单 -->
+                <div class="music-section">
+                    <h3>热门宠友歌单</h3>
+                    <div class="playlist-grid">
+                        <div class="playlist-card">
+                            <div class="playlist-cover">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h4>温馨午后</h4>
+                            <p>轻柔的音乐陪伴</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="playlist-card">
+                            <div class="playlist-cover">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <h4>快乐时光</h4>
+                            <p>活泼欢快的旋律</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="playlist-card">
+                            <div class="playlist-cover">
+                                <i class="fas fa-dove"></i>
+                            </div>
+                            <h4>彩虹桥之歌</h4>
+                            <p>纪念逝去的爱宠</p>
+                            <button class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 自定义上传 -->
+                <div class="music-section">
+                    <h3>自定义音乐</h3>
+                    <div class="upload-music">
+                        <button class="upload-btn">
+                            <i class="fas fa-upload"></i>
+                            <span>上传音乐</span>
+                        </button>
+                        <p class="upload-hint">支持 MP3、WAV 格式，最大 10MB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="index.html#space" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>空间</span>
+        </a>
+        <a href="#" class="nav-item add-btn">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        <a href="social.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>宠友</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+
+    <script src="js/nav-common.js"></script>
+    <script src="js/decoration.js"></script>
+</body>
+</html>

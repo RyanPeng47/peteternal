@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: peteternal-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: peteternal123
+      MYSQL_DATABASE: peteternal
+      MYSQL_USER: peteternal
+      MYSQL_PASSWORD: peteternal123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - peteternal-network
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: peteternal-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - peteternal-network
+
+  # 后端API服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: peteternal-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DB_HOST: mysql
+      DB_USER: peteternal
+      DB_PASSWORD: peteternal123
+      DB_NAME: peteternal
+      DB_PORT: 3306
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      JWT_EXPIRES_IN: 7d
+      CORS_ORIGIN: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./backend/uploads:/app/uploads
+    networks:
+      - peteternal-network
+
+  # Nginx反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: peteternal-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+      - .:/usr/share/nginx/html
+    depends_on:
+      - backend
+    networks:
+      - peteternal-network
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  peteternal-network:
+    driver: bridge

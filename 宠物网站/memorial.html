@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纪念与生命日志 - PetEternal (宠恒)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/memorial.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <span>PetEternal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">首页</a>
+                <a href="index.html#space">宠物空间</a>
+                <a href="decoration.html">空间装饰</a>
+                <a href="ai-avatar.html">AI卡通</a>
+                <a href="memorial.html" class="active">纪念日志</a>
+                <a href="social.html">宠友圈</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="memorial-main">
+        <h1 class="page-title">纪念与生命日志</h1>
+        <p class="page-subtitle">记录每一个重要时刻，让美好永存</p>
+
+        <!-- 功能导航 -->
+        <div class="memorial-nav">
+            <button class="nav-btn active" data-section="calendar">生命日历</button>
+            <button class="nav-btn" data-section="mailbox">时空信箱</button>
+            <button class="nav-btn" data-section="timeline">成长轨迹</button>
+            <button class="nav-btn" data-section="rainbow">彩虹桥</button>
+        </div>
+
+        <!-- 生命日历 -->
+        <section class="memorial-section active" id="calendar">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="month-nav" id="prevMonth">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="currentMonth">2024年1月</h2>
+                    <button class="month-nav" id="nextMonth">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays">
+                        <div>日</div>
+                        <div>一</div>
+                        <div>二</div>
+                        <div>三</div>
+                        <div>四</div>
+                        <div>五</div>
+                        <div>六</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- 日历日期将动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 重要事件提醒 -->
+            <div class="events-section">
+                <h3>即将到来的重要日子</h3>
+                <div class="events-list">
+                    <div class="event-card birthday">
+                        <div class="event-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <div class="event-info">
+                            <h4>小白的3岁生日</h4>
+                            <p>还有7天</p>
+                            <span class="event-date">2024年1月25日</span>
+                        </div>
+                        <button class="event-action">设置提醒</button>
+                    </div>
+                    <div class="event-card memorial">
+                        <div class="event-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="event-info">
+                            <h4>纪念球球</h4>
+                            <p>纪念离开一周年</p>
+                            <span class="event-date">2024年2月14日</span>
+                        </div>
+                        <button class="event-action">写信纪念</button>
+                    </div>
+                    <div class="event-card health">
+                        <div class="event-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="event-info">
+                            <h4>疫苗接种提醒</h4>
+                            <p>下次接种时间</p>
+                            <span class="event-date">2024年2月1日</span>
+                        </div>
+                        <button class="event-action">已记录</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 添加新事件 -->
+            <div class="add-event-section">
+                <h3>添加重要事件</h3>
+                <div class="event-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>事件类型</label>
+                            <select id="eventType">
+                                <option value="birthday">生日</option>
+                                <option value="adopt">领养日</option>
+                                <option value="health">健康记录</option>
+                                <option value="milestone">成长里程碑</option>
+                                <option value="memorial">纪念日</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>事件名称</label>
+                            <input type="text" id="eventName" placeholder="例如：第一次学会握手">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>日期</label>
+                            <input type="date" id="eventDate">
+                        </div>
+                        <div class="form-group">
+                            <label>重复</label>
+                            <select id="eventRepeat">
+                                <option value="once">不重复</option>
+                                <option value="yearly">每年</option>
+                                <option value="monthly">每月</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>备注</label>
+                        <textarea id="eventNote" placeholder="记录美好时刻..."></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="addEvent()">
+                        <i class="fas fa-plus"></i>
+                        添加事件
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 时空信箱 -->
+        <section class="memorial-section" id="mailbox">
+            <div class="mailbox-header">
+                <h2>时空信箱</h2>
+                <p>给未来的宠物，或者彩虹桥那端的它写一封信</p>
+            </div>
+
+            <div class="mailbox-tabs">
+                <button class="tab-btn active" data-tab="future">写给未来</button>
+                <button class="tab-btn" data-tab="rainbow">写给彩虹桥</button>
+            </div>
+
+            <!-- 写给未来 -->
+            <div class="mailbox-content active" id="future">
+                <div class="letter-form">
+                    <div class="form-group">
+                        <label>收信的宠物</label>
+                        <select id="futurePet">
+                            <option value="小白">小白</option>
+                            <option value="球球">球球（在彩虹桥）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>送达时间</label>
+                        <input type="date" id="deliverDate">
+                        <small>信件将在指定日期发送到您的邮箱</small>
+                    </div>
+                    <div class="form-group">
+                        <label>亲启的信</label>
+                        <div class="letter-editor">
+                            <div class="letter-header">
+                                亲爱的小白：
+                            </div>
+                            <textarea id="letterContent" placeholder="写下您想说的话..."></textarea>
+                            <div class="letter-footer">
+                                永远爱你的主人<br>
+                                <span id="currentDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="submit-btn" onclick="sendTimeLetter()">
+                        <i class="fas fa-paper-plane"></i>
+                        投入时空信箱
+                    </button>
+                </div>
+            </div>
+
+            <!-- 写给彩虹桥 -->
+            <div class="mailbox-content" id="rainbow">
+                <div class="rainbow-bridge">
+                    <div class="rainbow-bg"></div>
+                    <div class="letter-form">
+                        <h3>写给彩虹桥那端的它</h3>
+                        <div class="form-group">
+                            <label>纪念的宠物</label>
+                            <select id="memorialPet">
+                                <option value="球球">球球</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>思念的话语</label>
+                            <div class="letter-editor">
+                                <div class="letter-header">
+                                    亲爱的球球：
+                                </div>
+                                <textarea id="rainbowLetter" placeholder="您想对它说的话..."></textarea>
+                                <div class="letter-footer">
+                                    永远想念您的<br>
+                                    <span id="currentDate2"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="submit-btn" onclick="sendRainbowLetter()">
+                            <i class="fas fa-dove"></i>
+                            放飞思念
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 已发送的信件 -->
+            <div class="sent-letters">
+                <h3>已发送的信件</h3>
+                <div class="letters-grid">
+                    <div class="letter-card">
+                        <div class="letter-preview">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="letter-info">
+                            <h4>给小白的信</h4>
+                            <p>送达时间：2024年6月1日</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 成长轨迹 -->
+        <section class="memorial-section" id="timeline">
+            <div class="timeline-container">
+                <h2>成长轨迹</h2>
+                <div class="timeline" id="petTimeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021年1月15日</div>
+                            <h3>初遇</h3>
+                            <p>第一次见到小小的你，决定带回家</p>
+                            <div class="timeline-photos">
+                                <img src="https://via.placeholder.com/100" alt="照片">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021年3月20日</div>
+                            <h3>学会坐下</h3>
+                            <p>第一次成功完成"坐下"指令</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023年1月25日</div>
+                            <h3>2岁生日</h3>
+                            <p>和朋友们一起庆祝生日</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 添加新的成长记录 -->
+                <div class="add-timeline">
+                    <h3>记录新的成长时刻</h3>
+                    <div class="timeline-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>日期</label>
+                                <input type="date" id="timelineDate">
+                            </div>
+                            <div class="form-group">
+                                <label>里程碑标题</label>
+                                <input type="text" id="timelineTitle" placeholder="例如：第一次出门散步">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>描述</label>
+                            <textarea id="timelineDesc" placeholder="记录这个特别的时刻..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>上传照片</label>
+                            <div class="photo-upload">
+                                <button class="upload-photo-btn">
+                                    <i class="fas fa-camera"></i>
+                                    添加照片
+                                </button>
+                            </div>
+                        </div>
+                        <button class="submit-btn" onclick="addTimelineEvent()">
+                            <i class="fas fa-plus"></i>
+                            添加到成长轨迹
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 彩虹桥社区 -->
+        <section class="memorial-section" id="rainbow">
+            <div class="rainbow-community">
+                <h2>彩虹桥社区</h2>
+                <p>与同样失去爱宠的朋友们相互慰藉</p>
+
+                <!-- 纪念墙 -->
+                <div class="memorial-wall">
+                    <h3>纪念墙</h3>
+                    <div class="wall-grid">
+                        <div class="memorial-post">
+                            <div class="post-avatar">
+                                <img src="https://via.placeholder.com/50" alt="用户头像">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <span class="username">小明</span>
+                                    <span class="post-date">3天前</span>
+                                </div>
+                                <div class="post-text">
+                                    球球，今天是你离开的第100天。还是很想你，你在彩虹桥那边要开心啊...
+                                </div>
+                                <div class="post-image">
+                                    <img src="https://via.placeholder.com/300" alt="纪念照片">
+                                </div>
+                                <div class="post-actions">
+                                    <button class="action-btn">
+                                        <i class="fas fa-heart"></i>
+                                        <span>慰藉</span>
+                                    </button>
+                                    <button class="action-btn">
+                                        <i class="fas fa-comment"></i>
+                                        <span>留言</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 发布纪念 -->
+                    <div class="create-memorial">
+                        <h3>发布纪念</h3>
+                        <div class="memorial-form">
+                            <textarea id="memorialText" placeholder="写下您的思念..."></textarea>
+                            <div class="form-actions">
+                                <button class="upload-btn">
+                                    <i class="fas fa-image"></i>
+                                    添加照片
+                                </button>
+                                <button class="submit-btn" onclick="postMemorial()">
+                                    发布纪念
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="index.html#space" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>空间</span>
+        </a>
+        <a href="#" class="nav-item add-btn">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+        <a href="social.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>宠友</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+
+    <script src="js/nav-common.js"></script>
+    <script src="js/memorial.js"></script>
+</body>
+</html>
